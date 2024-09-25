@@ -10,4 +10,4 @@
 2. 同步资源文件 web/dist/* 到 statics/ 下  
 3. 编译: go build
 
-* [示例](./dist/demo.png)
+* ![示例](./dist/demo.png)
