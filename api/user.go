@@ -102,7 +102,7 @@ func DeleteUser(ctx *gin.Context) {
 // @Param user body model.UserForm true "更新用户请求参数"
 // @Success 200 {object} model.ApiRespone "更新用户成功"
 // @Failure 500 {object} model.ApiRespone "更新用户失败"
-// @Router /user/upt/:id [put]
+// @Router /user/upt/{id} [put]
 func UpdateUser(ctx *gin.Context) {
 	var userForm model.UserForm
 	if err := service.UpdateUser(userForm); err != nil {
