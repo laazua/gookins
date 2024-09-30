@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 import { useAuthStore } from '@/store/user.js'
 
 const service = axios.create({
-  baseURL: 'http://192.168.165.89:8084',
+  baseURL: 'http://192.168.165.88:8084',
   timeout: 50000
 })
 

@@ -124,7 +124,7 @@ const updateTaskStatus = async (task) => {
 
 const startPolling = (taskName) => {
   if (!pollingIntervals.has(taskName)) {
-    const intervalId = setInterval(() => updateTaskStatus(tasks.value.find(t => t.Name === taskName)), 5000)
+    const intervalId = setInterval(() => updateTaskStatus(tasks.value.find(t => t.Name === taskName)), 1000)
     pollingIntervals.set(taskName, intervalId)
   }
 }
