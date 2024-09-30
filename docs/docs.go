@@ -9,10 +9,10 @@ const docTemplate = `{
     "info": {
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
-        "termsOfService": "http://192.168.165.89:8084/terms/",
+        "termsOfService": "http://192.168.165.88:8084/terms/",
         "contact": {
             "name": "API Support",
-            "url": "http://192.168.165.89:8084/support",
+            "url": "http://192.168.165.88:8084/support",
             "email": "1323212038@qq.com"
         },
         "license": {
@@ -55,7 +55,7 @@ const docTemplate = `{
                             "$ref": "#/definitions/model.LoginRespon"
                         }
                     },
-                    "401": {
+                    "500": {
                         "description": "无效的凭据",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
@@ -100,7 +100,7 @@ const docTemplate = `{
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
+                    "500": {
                         "description": "创建任务失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
@@ -109,14 +109,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/task/cancel/{id}": {
-            "delete": {
+        "/task/cancel/{name}": {
+            "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
                     }
                 ],
-                "description": "任务取消接口",
+                "description": "任务禁用接口",
                 "consumes": [
                     "application/json"
                 ],
@@ -126,12 +126,12 @@ const docTemplate = `{
                 "tags": [
                     "任务"
                 ],
-                "summary": "取消任务",
+                "summary": "禁用任务",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "id",
-                        "name": "id",
+                        "description": "name",
+                        "name": "name",
                         "in": "path",
                         "required": true
                     }
@@ -143,7 +143,7 @@ const docTemplate = `{
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
+                    "500": {
                         "description": "取消任务失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
@@ -186,8 +186,53 @@ const docTemplate = `{
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
+                    "500": {
                         "description": "删除任务失败",
+                        "schema": {
+                            "$ref": "#/definitions/model.ApiRespone"
+                        }
+                    }
+                }
+            }
+        },
+        "/task/hook": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "hook运行任务接口",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "任务"
+                ],
+                "summary": "hook运行任务",
+                "parameters": [
+                    {
+                        "description": "hook添加任务请求参数",
+                        "name": "task",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.TaskForm"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "hook添加任务到任务池成功",
+                        "schema": {
+                            "$ref": "#/definitions/model.ApiRespone"
+                        }
+                    },
+                    "401": {
+                        "description": "hook添加任务到任务池失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
                         }
@@ -215,13 +260,13 @@ const docTemplate = `{
                 "summary": "任务列表",
                 "responses": {
                     "200": {
-                        "description": "创建用户成功",
+                        "description": "获取任务成功",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
-                        "description": "创建用户失败",
+                    "500": {
+                        "description": "获取任务失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
                         }
@@ -249,7 +294,7 @@ const docTemplate = `{
                 "summary": "运行任务",
                 "parameters": [
                     {
-                        "description": "创建任务请求参数",
+                        "description": "添加务请求参数",
                         "name": "task",
                         "in": "body",
                         "required": true,
@@ -265,7 +310,7 @@ const docTemplate = `{
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
+                    "500": {
                         "description": "添加任务到任务池失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
@@ -337,24 +382,24 @@ const docTemplate = `{
                 "summary": "更新任务",
                 "parameters": [
                     {
-                        "description": "更新用户请求参数",
+                        "description": "更新任务请求参数",
                         "name": "task",
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/model.UserForm"
+                            "$ref": "#/definitions/model.TaskForm"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "更新用户成功",
+                        "description": "更新任务成功",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
-                        "description": "更新用户失败",
+                    "500": {
+                        "description": "更新任务失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
                         }
@@ -398,7 +443,7 @@ const docTemplate = `{
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
+                    "500": {
                         "description": "创建用户失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
@@ -441,7 +486,7 @@ const docTemplate = `{
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
+                    "500": {
                         "description": "删除用户失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
@@ -470,13 +515,13 @@ const docTemplate = `{
                 "summary": "用户列表",
                 "responses": {
                     "200": {
-                        "description": "创建用户成功",
+                        "description": "获取用户列表成功",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
-                        "description": "创建用户失败",
+                    "500": {
+                        "description": "获取用户列表失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
                         }
@@ -484,7 +529,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/upt/:id": {
+        "/user/upt/{id}": {
             "put": {
                 "security": [
                     {
@@ -520,7 +565,7 @@ const docTemplate = `{
                             "$ref": "#/definitions/model.ApiRespone"
                         }
                     },
-                    "401": {
+                    "500": {
                         "description": "更新用户失败",
                         "schema": {
                             "$ref": "#/definitions/model.ApiRespone"
@@ -545,6 +590,10 @@ const docTemplate = `{
         },
         "model.LoginForm": {
             "type": "object",
+            "required": [
+                "name",
+                "password"
+            ],
             "properties": {
                 "name": {
                     "type": "string"
@@ -570,8 +619,16 @@ const docTemplate = `{
         },
         "model.TaskForm": {
             "type": "object",
+            "required": [
+                "description",
+                "name",
+                "pipeline"
+            ],
             "properties": {
                 "description": {
+                    "type": "string"
+                },
+                "id": {
                     "type": "string"
                 },
                 "name": {
@@ -584,6 +641,10 @@ const docTemplate = `{
         },
         "model.UserForm": {
             "type": "object",
+            "required": [
+                "name",
+                "password"
+            ],
             "properties": {
                 "avatar": {
                     "type": "string"
@@ -612,7 +673,7 @@ const docTemplate = `{
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
-	Host:             "192.168.165.89:8084",
+	Host:             "192.168.165.88:8084",
 	BasePath:         "/",
 	Schemes:          []string{},
 	Title:            "gookins web api",

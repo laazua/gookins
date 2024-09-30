@@ -25,16 +25,16 @@ import (
 // @title gookins web api
 // @version 1.0
 // @description gookins server web api.
-// @termsOfService http://192.168.165.89:8084/terms/
+// @termsOfService http://192.168.165.88:8084/terms/
 
 // @contact.name API Support
-// @contact.url http://192.168.165.89:8084/support
+// @contact.url http://192.168.165.88:8084/support
 // @contact.email 1323212038@qq.com
 
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 
-// @host 192.168.165.89:8084
+// @host 192.168.165.88:8084
 // @BasePath /
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header
